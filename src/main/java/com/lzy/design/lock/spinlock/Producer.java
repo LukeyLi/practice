@@ -9,10 +9,10 @@ package com.lzy.design.lock.spinlock;
  **/
 public class Producer extends Thread {
 
-    private SpinLock lock;
+    private Lock lock;
     Counter counter;
 
-    public Producer(SpinLock lock, Counter counter){
+    public Producer(Lock lock, Counter counter){
         this.lock = lock;
         this.counter = counter;
     }
@@ -22,6 +22,10 @@ public class Producer extends Thread {
         this.lock.lock();
         System.out.println("线程" + Thread.currentThread().getName() + "开始做事,count值：" + counter.getCount());
         counter.add();
-        this.lock.unLock();
+        System.out.println(counter);
+        this.lock.unlock();
+
     }
+
+
 }
