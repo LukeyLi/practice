@@ -9,7 +9,7 @@ import lombok.Data;
  **/
 
 @Data
-public class Course {
+public class CourseDto {
     private String id;
     private String courseName;
     private String coursePPT;

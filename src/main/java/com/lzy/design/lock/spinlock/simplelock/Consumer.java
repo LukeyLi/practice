@@ -19,9 +19,8 @@ public class Consumer extends Thread {
     @Override
     public void run(){
         int num = this.ticketLock.lock();
-        System.out.println("线程" + Thread.currentThread().getName() + "开始做事,count值：" + counter.getCount());
-        counter.add();
-        System.out.println(counter);
+        System.out.println("线程" + Thread.currentThread().getName() + "开始吃饭,count值：" + counter.getCount());
+        counter.dec();
         this.ticketLock.unlock(num);
 
     }

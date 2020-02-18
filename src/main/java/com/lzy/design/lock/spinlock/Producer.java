@@ -22,7 +22,6 @@ public class Producer extends Thread {
         this.lock.lock();
         System.out.println("线程" + Thread.currentThread().getName() + "开始做事,count值：" + counter.getCount());
         counter.add();
-        System.out.println(counter);
         this.lock.unlock();
 
     }

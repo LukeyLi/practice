@@ -38,7 +38,11 @@ public class MCSLock implements Lock {
             preNode.next = currentNode;
             // 循环判断，直到当前节点的锁标志位为false
             while (currentNode.isLocked) {
+                System.out.println("线程" + Thread.currentThread().getName() + "还在排队");
             }
+            System.out.println("线程" + Thread.currentThread().getName() + "轮到我了");
+        } else {
+            System.out.println("线程" + Thread.currentThread().getName() + "哈哈，不用排队，美滋滋");
         }
     }
 
@@ -49,16 +53,19 @@ public class MCSLock implements Lock {
         if (currentNode.next == null) {
             // 更新状态并设置queue为null
             if (UPDATE.compareAndSet(this, currentNode, null)) {
+                System.out.println("线程" + Thread.currentThread().getName() + "后面没人排队了");
                 // 如果成功了，表示queue==currentNode,即当前节点后面没有节点了
                 return;
             }else {
                 // 如果不成功，表示queue!=currentNode,即当前节点后面多了一个节点，表示有线程在等待
+                System.out.println("线程" + Thread.currentThread().getName() + "后面又来一个排队着呢");
                 // 如果当前节点的后续节点为null，则需要等待其不为null（参考加锁方法）
                 while (currentNode.next == null) {
                 }
             }
         }else {
             // 如果不为null，表示有线程在等待获取锁，此时将等待线程对应的节点锁状态更新为false，同时将当前线程的后继节点设为null
+            System.out.println("线程" + Thread.currentThread().getName() + "后面有人排队着呢");
             currentNode.next.isLocked = false;
             currentNode.next = null;
         }
