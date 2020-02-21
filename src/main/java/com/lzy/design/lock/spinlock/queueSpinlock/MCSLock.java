@@ -20,7 +20,6 @@ public class MCSLock implements Lock {
     private static final ThreadLocal<MCSNode> NODE = new ThreadLocal<>();
 
     //队列
-    @SuppressWarnings("unused")
     private volatile MCSNode queue;
 
     private static final AtomicReferenceFieldUpdater<MCSLock,MCSNode>UPDATE =
